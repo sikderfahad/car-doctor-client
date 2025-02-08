@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+:root {
+  --primary: #ff3811;
+  --dark2: #444444;
+}
+
+.active,
+.text-primary {
+  color: var(--primary);
+}
+
+.text-dark2 {
+  color: var(--dark2);
+}

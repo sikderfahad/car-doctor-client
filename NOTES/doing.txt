@@ -1,0 +1,21 @@
+1) create a vite-react project with tailwindCss latest v4 and daisyUI v5(beta)
+2) create header
+3) create all navigation pages and routing with react-router-dom
+4) create a custom carousel as project need by GPT + Me
+
+    ***Investigate:
+        i) I menually implement a auto slide carousel feature after a certain time (4s). Here I have 4 slides and each slides ongoing automatically according a condition. The condition is ( carouselRef.current.scrollLeft + width >= carouselRef.current.scrollWidth). But the condition didn't fulfiled while display slide 4. After some deep investigation and break down the code I found the floating point calculation error in condition. It solved by using Math.ceil method 
+        ( Math.ceil(carouselRef.current.scrollLeft) + width >= carouselRef.current.scrollWidth)
+
+5) create a cloudinary assets folder and host necessary images manually for use imgURL like (logo, slide-image)
+6) create about us section
+7) create sectionTitle conponent
+8) create server with mongodb integration
+9) create custom errorHandling middleware. Make sure this middleware always use and call after end of routing
+10) create a GET route where getting 
+    i) all data with all fields 
+    ii) all data with some fields (named projection method)
+    iii) the fields data getting from client url like (get / car-services?fields=img,title,price)
+11) create a simple useAxiosSecure hook for define baseURL (todo: infuture it convert to axios interceptor)
+12) create useLoadServices custom hook to load services data by using tanstack-react-query and useAxiosSecure
+13) visually display our service area section.
