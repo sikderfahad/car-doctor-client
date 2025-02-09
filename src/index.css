@@ -6,13 +6,32 @@
 :root {
   --primary: #ff3811;
   --dark2: #444444;
+  --dark7: #f3f3f3;
 }
 
 .active,
-.text-primary {
+.text-primary,
+.bg-primary {
   color: var(--primary);
 }
 
 .text-dark2 {
   color: var(--dark2);
+}
+
+.bg-dark2 {
+  background-color: var(--dark2);
+}
+
+.text-dark7 {
+  color: var(--dark7);
+}
+
+.bg-dark7 {
+  background-color: var(--dark7);
+}
+
+.bg-blur {
+  background: #ffffff69;
+  backdrop-filter: blur(15px);
 }

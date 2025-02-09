@@ -1,8 +1,12 @@
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { NavLink } from "react-router-dom";
+import useScrollDirection from "../../hooks/useScrollDirection";
+// import "./style.css"
 
 const Header = () => {
+  const { scrollDirection, lastScrollY } = useScrollDirection();
+
   const navs = [
     { path: "/", label: "home" },
     { path: "/about", label: "about" },
@@ -23,8 +27,16 @@ const Header = () => {
     ));
   };
   return (
-    <div>
-      <div className="navbar p-0 my-8">
+    <div
+      className={`my-8 w-full transform sticky top-0 left-0 z-[1] ${
+        scrollDirection === "up" && lastScrollY > 50 && "bg-blur"
+      } bg-white py-2 duration-500 ${
+        scrollDirection === "down"
+          ? "-translate-y-full opacity-0"
+          : "translate-y-0 opacity-100"
+      }`}
+    >
+      <div className={`navbar p-0 `}>
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -53,7 +65,9 @@ const Header = () => {
           </div>
           <a className="btn btn-ghost text-xl p-0">
             <img
-              className="p-0"
+              className={`p-0 transform duration-200 ${
+                lastScrollY > 50 ? "scale-50" : "scale-100"
+              }`}
               src="https://res.cloudinary.com/dwa2voehg/image/upload/v1738820018/logo_f3vjqp.svg"
               alt=""
             />{" "}
@@ -69,7 +83,7 @@ const Header = () => {
           <button className="text-2xl">
             <IoSearchOutline />
           </button>
-          <button className="py-3 px-6 text-primary font-medium border rounded">
+          <button className="py-3 px-6 bg-white text-primary font-medium border rounded">
             Appointment
           </button>
         </div>
