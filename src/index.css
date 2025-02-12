@@ -10,9 +10,12 @@
 }
 
 .active,
-.text-primary,
-.bg-primary {
+.text-primary {
   color: var(--primary);
+}
+
+.bg-primary {
+  background-color: var(--primary);
 }
 
 .text-dark2 {
@@ -34,4 +37,8 @@
 .bg-blur {
   background: #ffffff69;
   backdrop-filter: blur(15px);
+}
+
+.breadcrumb-style {
+  clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
 }

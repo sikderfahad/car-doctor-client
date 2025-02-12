@@ -13,6 +13,7 @@ const Header = () => {
     { path: "/services", label: "services" },
     { path: "/blog", label: "blog" },
     { path: "/contact", label: "contact" },
+    { path: "/add-service", label: "add service" },
   ];
 
   const displayNav = () => {
@@ -28,7 +29,7 @@ const Header = () => {
   };
   return (
     <div
-      className={`my-8 w-full transform sticky top-0 left-0 z-[1] ${
+      className={`my-8 w-full transform sticky top-0 left-0 z-[12] ${
         scrollDirection === "up" && lastScrollY > 50 && "bg-blur"
       } bg-white py-2 duration-500 ${
         scrollDirection === "down"
