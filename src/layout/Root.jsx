@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import ScrollTop from "../components/scrollTop/ScrollTop";
+import ToastBox from "../components/toastBox/ToastBox";
 
 const Root = () => {
   return (
@@ -11,6 +12,7 @@ const Root = () => {
         <Header />
         <main>
           <Outlet />
+          <ToastBox />
         </main>
       </div>
       <Footer />

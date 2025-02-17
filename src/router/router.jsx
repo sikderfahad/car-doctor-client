@@ -8,6 +8,9 @@ import Contact from "../pages/contact/Contact";
 import ServiceInfo from "../pages/serviceInfo/ServiceInfo";
 import Checkout from "../pages/checkout/Checkout";
 import AddService from "../pages/addServices/AddService";
+import Login from "../pages/login/Login";
+import SignUp from "../pages/signUp/SignUp";
+import Order from "../pages/order/Order";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +22,9 @@ export const router = createBrowserRouter([
       { path: "services", element: <Services /> },
       { path: "blog", element: <Blog /> },
       { path: "contact", element: <Contact /> },
+      { path: "login", element: <Login /> },
+      { path: "signup", element: <SignUp /> },
+      { path: "order", element: <Order /> },
       { path: "add-service", element: <AddService /> },
       { path: "checkout/:id", element: <Checkout /> },
       { path: "service-info/:id", element: <ServiceInfo /> },

@@ -61,7 +61,7 @@ const CarServicePage = () => {
 
         {/* Right Sidebar */}
         <div className="lg:col-span-3 space-y-8">
-          <ServicesCard id={service?.data && service?.data?._id} />
+          <ServicesCard id={service?.data?._id || ""} />
           <DownloadCard />
           <OfferCard />
 

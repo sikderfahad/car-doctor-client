@@ -10,11 +10,11 @@
 }
 
 .active,
-.text-primary {
+.text-main {
   color: var(--primary);
 }
 
-.bg-primary {
+.bg-main {
   background-color: var(--primary);
 }
 

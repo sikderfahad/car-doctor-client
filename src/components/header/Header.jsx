@@ -1,11 +1,25 @@
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineShoppingBag } from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import useScrollDirection from "../../hooks/useScrollDirection";
+import { useAuth } from "../../provider/AuthProvider";
+import showToast from "../../hooks/showToast";
+
 // import "./style.css"
 
 const Header = () => {
   const { scrollDirection, lastScrollY } = useScrollDirection();
+  const { user, logout } = useAuth();
+  console.log("from auth: ", user?.email);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      showToast("Good bye! We waiting for you", "error");
+    } catch (err) {
+      console.log("Error while logout: ", err);
+    }
+  };
 
   const navs = [
     { path: "/", label: "home" },
@@ -14,18 +28,49 @@ const Header = () => {
     { path: "/blog", label: "blog" },
     { path: "/contact", label: "contact" },
     { path: "/add-service", label: "add service" },
+    // { path: "/login", label: "login" },
   ];
 
   const displayNav = () => {
-    return navs.map((nav, idx) => (
-      <NavLink
-        className={"p-2 font-semibold capitalize mx-2"}
-        key={idx}
-        to={nav?.path}
-      >
-        {nav?.label}
-      </NavLink>
-    ));
+    return (
+      <>
+        {navs.map((nav, idx) => (
+          <NavLink
+            className={"p-2 font-semibold capitalize mx-2"}
+            key={idx}
+            to={nav?.path}
+          >
+            {nav?.label}
+          </NavLink>
+        ))}
+
+        {!user ? (
+          <NavLink
+            className={"p-2 font-semibold capitalize mx-2"}
+            to={"/login"}
+          >
+            {"login"}
+          </NavLink>
+        ) : (
+          <>
+            <Link
+              to={"/order"}
+              className={"p-2 font-semibold capitalize mx-2"}
+              // to={"/login"}
+            >
+              {"order"}
+            </Link>
+            <Link
+              onClick={handleLogout}
+              className={"p-2 font-semibold capitalize mx-2"}
+              // to={"/login"}
+            >
+              {"logout"}
+            </Link>
+          </>
+        )}
+      </>
+    );
   };
   return (
     <div
@@ -75,7 +120,7 @@ const Header = () => {
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1"> {displayNav()}</ul>
+          <ul className="menu menu-horizontal px-1">{displayNav()}</ul>
         </div>
         <div className="navbar-end flex items-center gap-4">
           <button className="text-2xl">
@@ -84,7 +129,7 @@ const Header = () => {
           <button className="text-2xl">
             <IoSearchOutline />
           </button>
-          <button className="py-3 px-6 bg-white text-primary font-medium border rounded">
+          <button className="py-3 px-6 bg-white text-main font-medium border rounded">
             Appointment
           </button>
         </div>

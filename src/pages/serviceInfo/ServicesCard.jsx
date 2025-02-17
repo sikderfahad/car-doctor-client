@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 const ServicesCard = ({ id }) => {
   const navigate = useNavigate();
   const { data: services } = useLoadData("/car-services?fields=title");
-  console.log(id);
+  // console.log(id);
   return (
     <div className="bg-dark7 shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-95 p-10 rounded-xl">
       <h3 className="font-bold text-2xl mb-3">Services</h3>

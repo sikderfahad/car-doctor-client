@@ -1,0 +1,13 @@
+{
+  "hosting": {
+    "public": "dist",
+    "site": "car-doctor-003",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

@@ -10,7 +10,9 @@ const ServiceCard = ({ service }) => {
         <img src={img} alt={title} className="rounded-xl w-full h-full" />
       </figure>
       <div className="card-body text-center p-5">
-        <h2 className="card-title text-2xl text-dark2 font-bold">{title}</h2>
+        <h2 className="card-title capitalize text-2xl text-dark2 font-bold">
+          {title}
+        </h2>
         <div className="text-lg font-medium text-red-600 flex items-center justify-between mt-3">
           <p className="text-left">Price: ${price}</p>
           <span
