@@ -21,13 +21,13 @@ const SignUp = () => {
       try {
         await profileUpdate(name);
       } catch (err) {
-        console.log("Error while update user profile: ", err);
+        console.error("Error while update user profile: ", err);
       }
 
       try {
         await emailVerify();
       } catch (err) {
-        console.log("Error while send verify email: ", err);
+        console.error("Error while send verify email: ", err);
       }
 
       if (!user?.emailVerified) {
@@ -36,9 +36,15 @@ const SignUp = () => {
       }
       showToast("Please login after verification! Check your inbox", "info");
     } catch (err) {
-      console.log("Error while create new email-pass user: ", err);
+      console.error("Error while create new email-pass user: ", err);
+      const userExist = err.message.includes("email-already-in-use");
+      if (userExist) {
+        showToast(
+          "User already registered. Please try again with another email",
+          "error"
+        );
+      }
     }
-    console.log(name, email, pass);
   };
   return (
     <div>

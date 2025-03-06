@@ -1,31 +1,54 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PageBanner from "../../components/pageBanner/PageBanner";
 import FloatingInput from "../../components/floatingInput/FloatingInput";
 import TextArea from "../../components/textArea/TextArea";
 import { useState } from "react";
-import { validateForm } from "../../hooks/validateForm";
 import DatePicker from "../../components/datePicker/DatePicker";
+import { useAuth } from "../../provider/AuthProvider";
+import { validateBlankForm } from "../../hooks/formValidation";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useLoadDataById from "../../hooks/useLoadDataById";
 
 const Checkout = () => {
   const { id } = useParams();
+  const { user } = useAuth();
   const [isError, setIsError] = useState({});
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+  const { data: service } = useLoadDataById(id);
+  console.log("service: ", service);
 
-  const handleForm = (e) => {
+  const handleForm = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
-    console.log(data);
+    data["serviceId"] = id;
+    data["displayName"] = user?.displayName;
+    data["serviceImg"] = service?.data?.img;
+    data["serviceName"] = service?.data?.title;
+    data["price"] = service?.data?.price;
+    data["status"] = "pending";
 
     //   Error handling
-    const errors = validateForm(data);
+    const errors = validateBlankForm(data);
+    console.log(errors);
     if (Object.keys(errors).length > 0) {
       return setIsError(errors);
     }
     setIsError({});
 
-    //   const orderInfo = {
+    try {
+      const orderRes = await axiosSecure.post("/service-order", data);
+      if (!orderRes.data?.success) {
+        return alert("Failed to insert order info in db");
+      }
+      e.target.reset();
+      navigate("/order-cart");
+    } catch (error) {
+      console.error(error);
+    }
 
-    //   }
+    console.log(data);
   };
   return (
     <div>
@@ -35,22 +58,17 @@ const Checkout = () => {
         <form onSubmit={handleForm}>
           <div className="grid grid-cols-2 gap-5">
             <FloatingInput
-              label={"first name"}
-              name={"fname"}
-              isError={isError}
-            />
-            <FloatingInput
-              label={"last name"}
-              name={"lname"}
-              isError={isError}
-            />
-            <FloatingInput
               label={"phone number"}
               type="number"
               name={"phoneNumber"}
               isError={isError}
             />
-            <FloatingInput label={"email"} name={"email"} isError={isError} />
+            <FloatingInput
+              label={"email"}
+              name={"email"}
+              value={user?.email}
+              isError={isError}
+            />
             <DatePicker
               name={"serviceDate"}
               label={"Pick your comfortable date to servicing"}

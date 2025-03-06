@@ -2,22 +2,26 @@ import { FaLinkedinIn } from "react-icons/fa";
 import { ImFacebook } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "../../provider/AuthProvider";
-import showToast from "../../hooks/showToast";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useLocation, useNavigate } from "react-router-dom";
+import jwtOperation from "../../hooks/jwtOperation";
 
 const SocialLogin = () => {
-  const { user, googleSignin, logout } = useAuth();
-  console.log(user);
+  const axiosSecure = useAxiosSecure();
+  const { googleSignin, logout } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  // console.log(user);
+  // console.log("from socialLogin: ", location);
 
   const handleGoogleLogin = async () => {
     try {
       const userRes = await googleSignin();
       const user = userRes.user;
-      if (!user?.emailVerified) {
-        return await logout();
-      }
-      showToast(`Welcome back ${user?.displayName && user?.displayName}`);
+
+      await jwtOperation(axiosSecure, user, logout, navigate, location);
     } catch (err) {
-      console.log("Error while google login: ", err);
+      console.error("Error while google login: ", err);
     }
   };
 

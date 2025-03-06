@@ -10,6 +10,13 @@ const useLoadDataById = (id) => {
       return data;
     },
     enabled: !!id,
+    retry: (failureCount, error) => {
+      console.log("error from order: ", error);
+      if (error.response && error.response.status === 404) {
+        return false;
+      }
+      return failureCount < 2;
+    },
   });
 
   return { data, refetch, isLoading, error };

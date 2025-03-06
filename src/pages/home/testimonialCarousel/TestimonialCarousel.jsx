@@ -33,48 +33,51 @@ export default function TestimonialCarousel() {
           <IoIosArrowBack />
         </button>
         <div className="flex w-full justify-center gap-6 overflow-hidden">
-          {testimonials?.data
-            .slice(index, index + visibleCards)
-            .map((testimonial) => (
-              <motion.div
-                key={testimonial._id}
-                className="card flex-grow bg-white shadow-lg border-2 border-gray-200 rounded-lg p-6 text-center relative"
-                initial={{ opacity: 0, x: 500 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -500 }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="flex relative items-center justify-start">
-                  <figure className="p-4 flex justify-center">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="w-16 h-16 object-cover rounded-full border-2 border-gray-300"
-                    />
-                  </figure>
+          {testimonials?.data &&
+            testimonials?.data
+              .slice(index, index + visibleCards)
+              .map((testimonial) => (
+                <motion.div
+                  key={testimonial._id}
+                  className="card flex-grow bg-white shadow-lg border-2 border-gray-200 rounded-lg p-6 text-center relative"
+                  initial={{ opacity: 0, x: 500 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -500 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="flex relative items-center justify-start">
+                    <figure className="p-4 flex justify-center">
+                      <img
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="w-16 h-16 object-cover rounded-full border-2 border-gray-300"
+                      />
+                    </figure>
 
-                  <div className="text-left">
-                    <h2 className="text-2xl capitalize font-bold text-gray-700">
-                      {testimonial.name}
-                    </h2>
-                    <p className="text-gray-500 text-lg font-semibold">
-                      {testimonial.profession}
-                    </p>
+                    <div className="text-left">
+                      <h2 className="text-2xl capitalize font-bold text-gray-700">
+                        {testimonial.name}
+                      </h2>
+                      <p className="text-gray-500 text-lg font-semibold">
+                        {testimonial.profession}
+                      </p>
+                    </div>
+                    <div className="absolute w-[70px] right-0">
+                      <img src={quoteImg} alt="" />
+                    </div>
                   </div>
-                  <div className="absolute w-[70px] right-0">
-                    <img src={quoteImg} alt="" />
+                  <div className="card-body p-2">
+                    <p className="mt-2 text-gray-600">{testimonial.review}</p>
+                    <div className="flex justify-center mt-2 text-orange-400">
+                      {Array.from({ length: testimonial.rating }).map(
+                        (_, i) => (
+                          <span key={i}>★</span>
+                        )
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div className="card-body p-2">
-                  <p className="mt-2 text-gray-600">{testimonial.review}</p>
-                  <div className="flex justify-center mt-2 text-orange-400">
-                    {Array.from({ length: testimonial.rating }).map((_, i) => (
-                      <span key={i}>★</span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
         </div>
         <button
           className="absolute right-0 p-3 bg-red-500 text-white rounded-full text-2xl"

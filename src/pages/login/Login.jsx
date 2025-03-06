@@ -1,13 +1,16 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import AuthForm from "../../components/AuthForm";
-import showToast from "../../hooks/showToast";
 import { useAuth } from "../../provider/AuthProvider";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import jwtOperation from "../../hooks/jwtOperation";
+import showToast from "../../hooks/showToast";
 
 const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location);
+  const axiosSecure = useAxiosSecure();
   const { loginUserWithEmailPass, logout } = useAuth();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -16,17 +19,17 @@ const Login = () => {
     try {
       const res = await loginUserWithEmailPass(email, pass);
       const user = res.user;
-      if (!user?.emailVerified) {
-        return await logout();
-      }
-      if (user) {
-        showToast(`Welcome back ${user?.displayName ? user?.displayName : ""}`);
-        navigate(location?.state ? location?.state?.from : "/");
-      }
+      // change area start
+
+      await jwtOperation(axiosSecure, user, logout, navigate, location);
+
+      // change area end
     } catch (err) {
-      console.log("Error while login user: ", err);
+      console.error("Error while login user: ", err.message);
+      const invalidCredentials = err.message.includes("invalid-credential");
+      if (invalidCredentials)
+        showToast("Invalid user/password credentials", "error");
     }
-    console.log(email, pass);
   };
   return (
     <div>

@@ -1,35 +1,69 @@
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineShoppingBag } from "react-icons/md";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import useScrollDirection from "../../hooks/useScrollDirection";
 import { useAuth } from "../../provider/AuthProvider";
 import showToast from "../../hooks/showToast";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { VscSignOut } from "react-icons/vsc";
+import Swal from "sweetalert2";
 
 // import "./style.css"
 
 const Header = () => {
+  const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
   const { scrollDirection, lastScrollY } = useScrollDirection();
-  const { user, logout } = useAuth();
-  console.log("from auth: ", user?.email);
+  const { user, logout, role } = useAuth();
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      showToast("Good bye! We waiting for you", "error");
-    } catch (err) {
-      console.log("Error while logout: ", err);
-    }
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Are you sure Sign out?",
+      text: "Confirm your desired service order before Sign out!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, I wanna Sign out now!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await logout();
+          try {
+            const jwtRes = await axiosSecure.post("/jwt-logout", null);
+            // console.log(jwtRes);
+            if (!jwtRes?.data?.success) {
+              return console.error("Error while logout", "error");
+            }
+            showToast("Good bye! We waiting for you", "error");
+          } catch (err) {
+            console.error("Error while remove token from cookie: ", err);
+          }
+        } catch (err) {
+          console.error("Error while logout: ", err);
+        }
+      }
+    });
   };
 
   const navs = [
     { path: "/", label: "home" },
-    { path: "/about", label: "about" },
     { path: "/services", label: "services" },
-    { path: "/blog", label: "blog" },
-    { path: "/contact", label: "contact" },
-    { path: "/add-service", label: "add service" },
-    // { path: "/login", label: "login" },
+    // { path: "/about", label: "about" },
+    // { path: "/blog", label: "blog" },
+    // { path: "/contact", label: "contact" },
   ];
+
+  const authNavs = [{ path: "/order-cart", label: "order" }];
+  if (role === "admin" || role === "officer") {
+    authNavs.unshift(
+      { path: "/add-service", label: "add service" },
+      { path: "/all-service-orders", label: "all orders" }
+    );
+  }
+  if (role === "admin") {
+    authNavs.unshift({ path: "/users", label: "users" });
+  }
 
   const displayNav = () => {
     return (
@@ -53,20 +87,25 @@ const Header = () => {
           </NavLink>
         ) : (
           <>
-            <Link
-              to={"/order"}
-              className={"p-2 font-semibold capitalize mx-2"}
-              // to={"/login"}
-            >
-              {"order"}
-            </Link>
-            <Link
+            {authNavs.map((nav, idx) => (
+              <NavLink
+                className={"p-2 font-semibold capitalize mx-2"}
+                key={idx}
+                to={nav?.path}
+              >
+                {nav?.label}
+              </NavLink>
+            ))}
+
+            <button
+              title="Sign out"
               onClick={handleLogout}
-              className={"p-2 font-semibold capitalize mx-2"}
-              // to={"/login"}
+              className={
+                "p-2 text-2xl cursor-pointer hover:text-red-500 transition duration-200 font-semibold capitalize mx-2"
+              }
             >
-              {"logout"}
-            </Link>
+              <VscSignOut />
+            </button>
           </>
         )}
       </>
@@ -123,7 +162,10 @@ const Header = () => {
           <ul className="menu menu-horizontal px-1">{displayNav()}</ul>
         </div>
         <div className="navbar-end flex items-center gap-4">
-          <button className="text-2xl">
+          <button
+            onClick={() => navigate("/order-cart")}
+            className="text-2xl cursor-pointer hover:text-red-500 transition duration-200"
+          >
             <MdOutlineShoppingBag />
           </button>
           <button className="text-2xl">

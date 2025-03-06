@@ -84,7 +84,7 @@ const AddService = () => {
 
       e.target.reset();
     } catch (err) {
-      console.log("Error while insert service data in DB: ", err);
+      console.error("Error while insert service data in DB: ", err);
     }
 
     setErrors({});

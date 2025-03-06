@@ -2,8 +2,12 @@ import FloatingInput from "./floatingInput/FloatingInput";
 import authImg from "../assets/login.svg";
 import SocialLogin from "./socialLogin/SocialLogin";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 
 const AuthForm = ({ authType, handleSubmit }) => {
+  const [showPass, setShowPass] = useState(false);
+
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -21,12 +25,24 @@ const AuthForm = ({ authType, handleSubmit }) => {
                 <FloatingInput border={true} label={"name"} name={"name"} />
               )}
               <FloatingInput border={true} label={"email"} name={"email"} />
-              <FloatingInput
-                border={true}
-                label={"password"}
-                name={"pass"}
-                type="password"
-              />
+              <div className="relative">
+                <FloatingInput
+                  border={true}
+                  label={"password"}
+                  name={"pass"}
+                  type={`${showPass ? "text" : "password"}`}
+                />
+                <div
+                  onClick={() => setShowPass(!showPass)}
+                  className="absolute right-0 px-2 top-0 h-full flex items-center"
+                >
+                  {!showPass ? (
+                    <BsEye className="font-semibold text-gray-500" />
+                  ) : (
+                    <BsEyeSlash className="font-semibold text-gray-500" />
+                  )}
+                </div>
+              </div>
 
               <button
                 type="submit"

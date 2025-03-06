@@ -10,7 +10,11 @@ import Checkout from "../pages/checkout/Checkout";
 import AddService from "../pages/addServices/AddService";
 import Login from "../pages/login/Login";
 import SignUp from "../pages/signUp/SignUp";
-import Order from "../pages/order/Order";
+import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
+import AllUsers from "../pages/allUsers/AllUsers";
+import UserOrderCart from "../pages/userOrderCart/UserOrderCart";
+import AllServiceOrders from "../pages/allServiceOrders/AllServiceOrders";
 
 export const router = createBrowserRouter([
   {
@@ -18,16 +22,74 @@ export const router = createBrowserRouter([
     element: <Root />,
     children: [
       { index: true, element: <Home /> },
-      { path: "about", element: <About /> },
       { path: "services", element: <Services /> },
+      { path: "about", element: <About /> },
       { path: "blog", element: <Blog /> },
       { path: "contact", element: <Contact /> },
-      { path: "login", element: <Login /> },
-      { path: "signup", element: <SignUp /> },
-      { path: "order", element: <Order /> },
-      { path: "add-service", element: <AddService /> },
-      { path: "checkout/:id", element: <Checkout /> },
-      { path: "service-info/:id", element: <ServiceInfo /> },
+      {
+        path: "users",
+        element: (
+          <PrivateRoute allowedRole={["admin"]}>
+            <AllUsers />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "login",
+        element: (
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        ),
+      },
+      {
+        path: "signup",
+        element: (
+          <PublicRoute>
+            <SignUp />
+          </PublicRoute>
+        ),
+      },
+      {
+        path: "order-cart",
+        element: (
+          <PrivateRoute>
+            <UserOrderCart />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "all-service-orders",
+        element: (
+          <PrivateRoute allowedRole={["admin", "officer"]}>
+            <AllServiceOrders />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "add-service",
+        element: (
+          <PrivateRoute allowedRole={["admin", "officer"]}>
+            <AddService />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "checkout/:id",
+        element: (
+          <Checkout />
+          // <PrivateRoute>
+          // </PrivateRoute>
+        ),
+      },
+      {
+        path: "service-info/:id",
+        element: (
+          <PrivateRoute>
+            <ServiceInfo />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 ]);
