@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import AuthForm from "../../components/AuthForm";
 import showToast from "../../hooks/showToast";
 import { useAuth } from "../../provider/AuthProvider";
+import { Helmet } from "react-helmet";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -48,6 +49,9 @@ const SignUp = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Car doctor | Signup</title>
+      </Helmet>
       <AuthForm authType={"signup"} handleSubmit={handleSubmit} />
     </div>
   );

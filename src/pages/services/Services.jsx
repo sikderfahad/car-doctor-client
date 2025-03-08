@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import PageBanner from "../../components/pageBanner/PageBanner";
 import SpinnerCircle from "../../components/spinnerCircle/SpinnerCircle";
 import useLoadData from "../../hooks/useLoadData";
@@ -9,6 +10,9 @@ const Services = () => {
   );
   return (
     <div>
+      <Helmet>
+        <title>Car doctor | Services</title>
+      </Helmet>
       <PageBanner title="all services" />
 
       <div className={isLoading && "flex items-center justify-center"}>

@@ -5,6 +5,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { isFacilityValid, validateBlankForm } from "../../hooks/formValidation";
 import { imgHosting } from "../../hooks/imgHosting";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet";
 
 const AddService = () => {
   const axiosSecure = useAxiosSecure();
@@ -108,6 +109,9 @@ const AddService = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Car doctor | Add service</title>
+      </Helmet>
       <form onSubmit={handleForm}>
         <div className="w-full p-5 md:p-10 bg-dark7 rounded-2xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import OrderBox from "../../components/orderBox/OrderBox";
 import SpinnerCircle from "../../components/spinnerCircle/SpinnerCircle";
 import useLoadData from "../../hooks/useLoadData";
@@ -8,6 +9,9 @@ const AllServiceOrders = () => {
   const { data: allOrders, isLoading, refetch } = useLoadData("/service-order");
   return (
     <div className={isLoading && "flex items-center justify-center"}>
+      <Helmet>
+        <title>Car doctor | All service order</title>
+      </Helmet>
       {isLoading ? (
         <SpinnerCircle />
       ) : (

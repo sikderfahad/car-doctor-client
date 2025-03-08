@@ -5,6 +5,7 @@ import DownloadCard from "./DownloadCard";
 import OfferCard from "./OfferCard";
 import PageBanner from "../../components/pageBanner/PageBanner";
 import SpinnerCircle from "../../components/spinnerCircle/SpinnerCircle";
+import { Helmet } from "react-helmet";
 
 const CarServicePage = () => {
   const navigate = useNavigate();
@@ -13,6 +14,9 @@ const CarServicePage = () => {
   // const { img, title } = service.data;
   return (
     <div className="">
+      <Helmet>
+        <title>Car doctor | Service info</title>
+      </Helmet>
       <PageBanner title="service details" />
 
       <div className="mx-auto py-10 grid grid-cols-1 md:grid-cols-10 gap-6">

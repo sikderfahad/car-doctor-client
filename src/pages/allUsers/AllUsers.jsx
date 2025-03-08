@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import SpinnerCircle from "../../components/spinnerCircle/SpinnerCircle";
 import useLoadData from "../../hooks/useLoadData";
 import UserRow from "./UserRow";
@@ -7,6 +8,9 @@ const AllUsers = () => {
   // console.log(users);
   return (
     <div>
+      <Helmet>
+        <title>Car doctor | All users</title>
+      </Helmet>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}

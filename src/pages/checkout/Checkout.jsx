@@ -8,6 +8,7 @@ import { useAuth } from "../../provider/AuthProvider";
 import { validateBlankForm } from "../../hooks/formValidation";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useLoadDataById from "../../hooks/useLoadDataById";
+import { Helmet } from "react-helmet";
 
 const Checkout = () => {
   const { id } = useParams();
@@ -52,6 +53,9 @@ const Checkout = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Car doctor | Checkout</title>
+      </Helmet>
       <PageBanner title="check out" />
 
       <div className="bg-dark7 p-4 md:16 lg:p-32 rounded-2xl">

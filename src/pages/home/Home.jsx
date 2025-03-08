@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import AboutUs from "./aboutUs/AboutUs";
 import Contact from "./contact/Contact";
 import CoreFeatures from "./coreFeatures/CoreFeatures";
@@ -10,6 +11,9 @@ import TestimonialCarousel from "./testimonialCarousel/TestimonialCarousel";
 const Home = () => {
   return (
     <div>
+      <Helmet>
+        <title>Car doctor | Home</title>
+      </Helmet>
       <HeroSlider />
       <AboutUs />
       <ServiceArea />

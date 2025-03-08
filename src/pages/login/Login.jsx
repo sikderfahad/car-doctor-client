@@ -4,6 +4,7 @@ import { useAuth } from "../../provider/AuthProvider";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import jwtOperation from "../../hooks/jwtOperation";
 import showToast from "../../hooks/showToast";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
   const location = useLocation();
@@ -33,6 +34,9 @@ const Login = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Car doctor | Login</title>
+      </Helmet>
       <AuthForm authType={"login"} handleSubmit={handleSubmit} />
     </div>
   );

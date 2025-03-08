@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import OrderBox from "../../components/orderBox/OrderBox";
 import SpinnerCircle from "../../components/spinnerCircle/SpinnerCircle";
 import useLoadData from "../../hooks/useLoadData";
@@ -12,6 +13,9 @@ const UserOrderCart = () => {
   } = useLoadData(`/service-order?user=${user?.email}`);
   return (
     <div className={isLoading && `flex items-center justify-center`}>
+      <Helmet>
+        <title>Car doctor | Order cart</title>
+      </Helmet>
       {isLoading ? (
         <SpinnerCircle />
       ) : (
