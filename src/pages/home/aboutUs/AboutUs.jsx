@@ -3,7 +3,7 @@ const AboutUs = () => {
     <section className="flex flex-col lg:flex-row items-center gap-10 py-16">
       {/* Left Side - Images */}
       <div className="relative w-full lg:w-1/2">
-        <div className="overflow-hidden w-3/4 h-[400px]">
+        <div className="overflow-hidden w-full lg:w-3/4 h-[400px]">
           <img
             src="https://res.cloudinary.com/dwa2voehg/image/upload/v1738835720/person_ktcpbu.jpg"
             alt="Mechanic"
@@ -21,12 +21,12 @@ const AboutUs = () => {
       </div>
 
       {/* Right Side - Text Content */}
-      <div className="w-full lg:w-1/2 pe-[150px]">
+      <div className="w-full lg:w-1/2 md:pe-[75px] lg:pe-[150px] mt-10">
         <h3 className="text-red-500 font-semibold">About Us</h3>
         <h2 className="text-4xl font-bold mt-2 leading-tight">
           We are qualified <br /> & of experience <br /> in this field
         </h2>
-        <p className="text-gray-600 mt-4">
+        <p className="text-gray-600 text-justify md:text-left mt-4">
           There are many variations of passages of Lorem Ipsum available, but
           the majority have suffered alteration in some form, by injected
           humour, or randomised words which don't look even slightly believable.

@@ -15,11 +15,13 @@ import PublicRoute from "./PublicRoute";
 import AllUsers from "../pages/allUsers/AllUsers";
 import UserOrderCart from "../pages/userOrderCart/UserOrderCart";
 import AllServiceOrders from "../pages/allServiceOrders/AllServiceOrders";
+import NotFound from "../pages/notFound/NotFound";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <NotFound />,
     children: [
       { index: true, element: <Home /> },
       { path: "services", element: <Services /> },
@@ -77,9 +79,9 @@ export const router = createBrowserRouter([
       {
         path: "checkout/:id",
         element: (
-          <Checkout />
-          // <PrivateRoute>
-          // </PrivateRoute>
+          <PrivateRoute>
+            <Checkout />
+          </PrivateRoute>
         ),
       },
       {

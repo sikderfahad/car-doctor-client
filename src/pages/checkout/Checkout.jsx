@@ -16,7 +16,7 @@ const Checkout = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const { data: service } = useLoadDataById(id);
-  console.log("service: ", service);
+  // console.log("service: ", service);
 
   const handleForm = async (e) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ const Checkout = () => {
 
     //   Error handling
     const errors = validateBlankForm(data);
-    console.log(errors);
+    // console.log(errors);
     if (Object.keys(errors).length > 0) {
       return setIsError(errors);
     }
@@ -48,15 +48,15 @@ const Checkout = () => {
       console.error(error);
     }
 
-    console.log(data);
+    // console.log(data);
   };
   return (
     <div>
       <PageBanner title="check out" />
 
-      <div className="bg-dark7 p-32 rounded-2xl">
+      <div className="bg-dark7 p-4 md:16 lg:p-32 rounded-2xl">
         <form onSubmit={handleForm}>
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <FloatingInput
               label={"phone number"}
               type="number"
@@ -73,10 +73,10 @@ const Checkout = () => {
               name={"serviceDate"}
               label={"Pick your comfortable date to servicing"}
             />
-            <div className="col-span-2">
+            <div className="md:col-span-2">
               <TextArea label={"your message"} name={"message"} />
             </div>
-            <div className="col-span-2">
+            <div className="md:col-span-2">
               <button className="capitalize cursor-pointer text-white font-medium bg-primary hover:bg-red-700 w-full py-3 rounded-lg text-center">
                 order confirm
               </button>

@@ -37,7 +37,7 @@ const AddProductForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const finalProduct = { ...productData, facility: facilities };
-    console.log(finalProduct); // Handle data submission here
+    // console.log(finalProduct);
   };
 
   return (

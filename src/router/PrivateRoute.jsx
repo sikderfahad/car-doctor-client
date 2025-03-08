@@ -1,3 +1,4 @@
+import SpinnerCircle from "../components/spinnerCircle/SpinnerCircle";
 import { useAuth } from "../provider/AuthProvider";
 import { Navigate, useLocation } from "react-router-dom";
 
@@ -7,9 +8,9 @@ const PrivateRoute = ({ children, allowedRole = ["user"] }) => {
 
   if (loading) {
     return (
-      <h1 className="text-center text-xl font-semibold text-green-500">
-        Loading ...
-      </h1>
+      <div className="flex items-center justify-center">
+        <SpinnerCircle />
+      </div>
     );
   }
 

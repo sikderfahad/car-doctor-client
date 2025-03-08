@@ -1,12 +1,30 @@
+import { useEffect, useState } from "react";
 import { formateDateTime, getTimeAgo } from "../../hooks/timeStampValidation";
 import updateUserRole from "../../hooks/updateUserRole";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useAuth } from "../../provider/AuthProvider";
+import defaultMaleAvatar from "../../assets/man.png";
+import defaultFemaleAvatar from "../../assets/woman.png";
+import fetchUserGender from "../../hooks/fetchUserGender";
+import defaultUser from "../../assets/user.png";
 
 const UserRow = ({ user, refetch }) => {
   const axiosSecure = useAxiosSecure();
   const { role } = useAuth();
-  // console.log(user);
+  const [photoURL, setPhotoURL] = useState(user?.photoURL);
+  const [gender, setGender] = useState(null);
+
+  useEffect(() => {
+    setPhotoURL(user?.photoURL);
+  }, [user]);
+
+  useEffect(() => {
+    const getGender = async () => {
+      const gender = await fetchUserGender(user?.displayName);
+      setGender(gender);
+    };
+    getGender();
+  }, [user]);
 
   const roleActionBtn = [
     { role: "user", style: "btn btn-soft btn-primary capitalize " },
@@ -42,10 +60,21 @@ const UserRow = ({ user, refetch }) => {
         <div className="flex items-center gap-3">
           <div className="avatar">
             <div className="mask mask-squircle h-20 w-20">
-              <img src={user?.photoURL} alt={user?.displayName + " photo"} />
+              <img
+                src={photoURL}
+                alt={user?.displayName + " photo"}
+                onError={(e) =>
+                  (e.target.src =
+                    gender && gender === "male"
+                      ? defaultMaleAvatar
+                      : gender === "female"
+                      ? defaultFemaleAvatar
+                      : defaultUser)
+                }
+              />
             </div>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-auto flex-col gap-3">
             <div className="font-bold">{user?.displayName}</div>
             {user?.role !== "user" && (
               <div

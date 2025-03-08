@@ -29,12 +29,12 @@ const SocialLogin = () => {
     "w-12 h-12 text-lg hover:text-2xl transition duration-500 rounded-full bg-dark7 flex items-center justify-center";
   return (
     <div className="flex gap-5 w-fit mx-auto">
-      <div className={iconStyle}>
+      {/* <div className={iconStyle}>
         <ImFacebook />
       </div>
       <div className={iconStyle}>
         <FaLinkedinIn />
-      </div>
+      </div> */}
       <div onClick={handleGoogleLogin} className={iconStyle}>
         <FcGoogle />
       </div>

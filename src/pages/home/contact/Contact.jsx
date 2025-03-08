@@ -40,7 +40,7 @@ export default function Contact() {
   ];
 
   return (
-    <div className="my-20 bg-black text-white py-12 px-6 rounded-lg flex flex-col md:flex-row justify-around items-center space-y-4 md:space-y-0">
+    <div className="my-20 bg-black text-white py-12 px-6 rounded-lg flex flex-col md:flex-row justify-around items-start md:items-center space-y-4 md:space-y-0">
       {infos.map((info, index) => (
         <ContactBox key={index} {...info} />
       ))}

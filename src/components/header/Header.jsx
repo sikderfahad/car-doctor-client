@@ -1,20 +1,32 @@
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineShoppingBag } from "react-icons/md";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useScrollDirection from "../../hooks/useScrollDirection";
 import { useAuth } from "../../provider/AuthProvider";
 import showToast from "../../hooks/showToast";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { VscSignOut } from "react-icons/vsc";
 import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
+import fetchUserGender from "../../hooks/fetchUserGender";
+import defaultMaleAvatar from "../../assets/man.png";
+import defaultFemaleAvatar from "../../assets/woman.png";
+import defaultUser from "../../assets/user.png";
+import SpinnerCircle from "../spinnerCircle/SpinnerCircle";
 
 // import "./style.css"
 
 const Header = () => {
   const navigate = useNavigate();
+  const { user, loading, logout, role } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { scrollDirection, lastScrollY } = useScrollDirection();
-  const { user, logout, role } = useAuth();
+  const [photoURL, setPhotoURL] = useState(user?.photoURL);
+  const [gender, setGender] = useState(null);
+
+  useEffect(() => {
+    setPhotoURL(user?.photoURL);
+  }, [user]);
 
   const handleLogout = () => {
     Swal.fire({
@@ -111,9 +123,18 @@ const Header = () => {
       </>
     );
   };
+
+  useEffect(() => {
+    const getGender = async () => {
+      const gender = await fetchUserGender(user && user?.displayName);
+      setGender(gender);
+    };
+    getGender();
+  }, [user]);
+
   return (
     <div
-      className={`my-8 w-full transform sticky top-0 left-0 z-[12] ${
+      className={`my-4 lg:my-8 w-full transform sticky top-0 left-0 z-[12] ${
         scrollDirection === "up" && lastScrollY > 50 && "bg-blur"
       } bg-white py-2 duration-500 ${
         scrollDirection === "down"
@@ -124,7 +145,7 @@ const Header = () => {
       <div className={`navbar p-0 `}>
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <div tabIndex={0} role="button" className=" lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -151,7 +172,7 @@ const Header = () => {
           <a className="btn btn-ghost text-xl p-0">
             <img
               className={`p-0 transform duration-200 ${
-                lastScrollY > 50 ? "scale-50" : "scale-100"
+                lastScrollY > 50 ? "scale-50" : "scale-75 lg:scale-100"
               }`}
               src="https://res.cloudinary.com/dwa2voehg/image/upload/v1738820018/logo_f3vjqp.svg"
               alt=""
@@ -161,7 +182,7 @@ const Header = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{displayNav()}</ul>
         </div>
-        <div className="navbar-end flex items-center gap-4">
+        <div className="navbar-end flex items-center gap-2 lg:gap-4">
           <button
             onClick={() => navigate("/order-cart")}
             className="text-2xl cursor-pointer hover:text-red-500 transition duration-200"
@@ -171,9 +192,34 @@ const Header = () => {
           <button className="text-2xl">
             <IoSearchOutline />
           </button>
-          <button className="py-3 px-6 bg-white text-main font-medium border rounded">
-            Appointment
-          </button>
+          {loading ? (
+            <SpinnerCircle />
+          ) : (
+            user && (
+              <div className="">
+                <div
+                  className={`avatar ${
+                    lastScrollY > 50 ? "scale-75" : "scale-100"
+                  } avatar-online`}
+                  title={user?.displayName}
+                >
+                  <div className={`w-16 md:w-20  rounded-full`}>
+                    <img
+                      src={photoURL}
+                      onError={(e) =>
+                        (e.target.src =
+                          gender && gender === "male"
+                            ? defaultMaleAvatar
+                            : gender === "female"
+                            ? defaultFemaleAvatar
+                            : defaultUser)
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+            )
+          )}
         </div>
       </div>
     </div>

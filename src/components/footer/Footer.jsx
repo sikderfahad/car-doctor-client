@@ -1,9 +1,15 @@
 import { FaGoogle, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import FooterColumn from "./FooterColumn";
 
 const Footer = () => {
+  const footerItems = [
+    { title: "about", navs: ["home", "service", "contact"] },
+    { title: "company", navs: ["why car doctor", "about"] },
+    { title: "support", navs: ["support center", "feedback", "accessibility"] },
+  ];
   return (
     <footer className="bg-black text-gray-100 mt-20 py-20">
-      <div className="w-10/12 mx-auto lg:flex justify-between">
+      <div className="w-11/12 md:w-10/12 max-w-7xl mx-auto flex-col md:flex-row md:flex flex gap-10 flex-wrap justify-between">
         {/* Brand Section */}
         <div className="w-full md:w-1/3 lg:w-1/5 flex flex-col justify-between">
           <div>
@@ -28,68 +34,9 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* About Section */}
-        <div>
-          <h2 className="text-lg font-semibold mb-2">About</h2>
-          <ul className="space-y-1">
-            <li>
-              <a href="#" className="hover:underline">
-                Home
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:underline">
-                Service
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:underline">
-                Contact
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* Company Section */}
-        <div>
-          <h2 className="text-lg font-semibold mb-2">Company</h2>
-          <ul className="space-y-1">
-            <li>
-              <a href="#" className="hover:underline">
-                Why Car Doctor
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:underline">
-                About
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* Support Section */}
-        <div className="flex flex-col justify-between items-end">
-          <div>
-            <h2 className="text-lg font-semibold mb-2">Support</h2>
-            <ul className="space-y-1">
-              <li>
-                <a href="#" className="hover:underline">
-                  Support Center
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:underline">
-                  Feedback
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:underline">
-                  Accessibility
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+        {footerItems.map((column, idx) => (
+          <FooterColumn key={idx} column={column} />
+        ))}
       </div>
     </footer>
   );

@@ -15,7 +15,7 @@ const AuthForm = ({ authType, handleSubmit }) => {
           <img className="scale-90" src={authImg} alt="" />
         </div>
 
-        <div className="border-2 border-gray-300 rounded-2xl p-16">
+        <div className="border-2 border-gray-300 rounded-2xl p-6 md:p-10 lg:p-16">
           <h1 className="text-4xl font-semibold capitalize text-center">
             {authType}
           </h1>

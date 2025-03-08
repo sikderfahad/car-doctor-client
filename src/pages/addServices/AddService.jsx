@@ -109,7 +109,7 @@ const AddService = () => {
   return (
     <div>
       <form onSubmit={handleForm}>
-        <div className="w-full p-10 bg-dark7 rounded-2xl">
+        <div className="w-full p-5 md:p-10 bg-dark7 rounded-2xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <FloatingInput
               value={serviceData.title}
@@ -142,7 +142,7 @@ const AddService = () => {
           </div>
 
           <h2 className="mt-10 text-3xl font-bold">Facilities:</h2>
-          <div className="w-full p-5">
+          <div className="w-full mt-5 md:mt-0 md:p-5">
             {facilities.map((facility, index) => (
               <div key={index} className="relative grid grid-cols-1 gap-5 p-5">
                 <div

@@ -12,7 +12,7 @@ const PageBanner = ({ title }) => {
         />
 
         <div className="absolute flex items-center inset-0 bg-gradient-to-r from-[#000000] to-transparent">
-          <h1 className="text-5xl ml-24 text-white capitalize font-bold">
+          <h1 className="text-3xl md:text-5xl ml-12 md:ml-24 text-white capitalize font-bold">
             {title}
           </h1>
         </div>

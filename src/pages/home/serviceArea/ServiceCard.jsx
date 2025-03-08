@@ -17,7 +17,7 @@ const ServiceCard = ({ service }) => {
           <p className="text-left">Price: ${price}</p>
           <span
             onClick={() => navigate(`/service-info/${_id}`)}
-            className="w-8 h-8 rounded-full text-red-500 hover:bg-red-500 hover:text-white transition duration-200 flex items-center justify-center"
+            className="w-8 h-8 rounded-full cursor-pointer text-red-500 hover:bg-red-500 hover:text-white transition duration-200 flex items-center justify-center"
           >
             <FaArrowRight />{" "}
           </span>

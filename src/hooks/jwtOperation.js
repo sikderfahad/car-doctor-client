@@ -27,7 +27,7 @@ const jwtOperation = async (axiosSecure, user, logout, navigate, location) => {
       } catch (error) {
         if (error?.response && error.response.status === 404) {
           const postRes = await axiosSecure.post("/users", newUser);
-          console.log("new user: ", postRes);
+          // console.log("new user: ", postRes);
         } else {
           throw error;
         }
@@ -41,7 +41,7 @@ const jwtOperation = async (axiosSecure, user, logout, navigate, location) => {
         // console.log("update last login info: ", patchRes);
       }
     } catch (err) {
-      console.log("Error while add new user on db: ", err);
+      console.error("Error while add new user on db: ", err);
     }
     storeUserRoleInFirestore(user);
 

@@ -47,7 +47,7 @@ const HeroSlider = () => {
   return (
     <div
       style={{ height: "calc(100vh - 120px)" }}
-      className="relative w-full mx-auto"
+      className="relative w-full max-h-[800px] mx-auto"
     >
       {/* Carousel Container */}
       <div
@@ -83,13 +83,13 @@ const HeroSlider = () => {
       <div className="absolute bottom-5 right-5 flex gap-3 z-10">
         <button
           onClick={prevSlide}
-          className="bg-gray-800 text-white p-3 rounded-full"
+          className="bg-gray-800 cursor-pointer text-white p-3 rounded-full"
         >
           <FaArrowLeft />
         </button>
         <button
           onClick={nextSlide}
-          className="bg-red-500 text-white p-3 rounded-full"
+          className="bg-red-500 cursor-pointer text-white p-3 rounded-full"
         >
           <FaArrowRight />
         </button>

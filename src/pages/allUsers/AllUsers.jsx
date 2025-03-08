@@ -1,3 +1,4 @@
+import SpinnerCircle from "../../components/spinnerCircle/SpinnerCircle";
 import useLoadData from "../../hooks/useLoadData";
 import UserRow from "./UserRow";
 
@@ -19,12 +20,16 @@ const AllUsers = () => {
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>
-            {users?.success &&
-              users?.data.map((user) => (
-                <UserRow key={user?._id} user={user} refetch={refetch} />
-              ))}
-          </tbody>
+          {isLoading ? (
+            <SpinnerCircle />
+          ) : (
+            <tbody>
+              {users?.success &&
+                users?.data.map((user) => (
+                  <UserRow key={user?._id} user={user} refetch={refetch} />
+                ))}
+            </tbody>
+          )}
         </table>
       </div>
     </div>
